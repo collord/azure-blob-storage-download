@@ -1,6 +1,6 @@
-name: "Azure Blob Storage Upload"
+name: "Azure Blob Storage Download"
 author: "Matthew Fisher <matt.fisher@fishworks.io>"
-description: "Uploads assets to Azure Blob Storage"
+description: "Downloads assets to Azure Blob Storage"
 branding:
   icon: "box"
   color: "green"
@@ -15,16 +15,13 @@ inputs:
     description: "The name of the storage account. Required if sas_token is used"
     required: false
   container_name:
-    description: "The name of the storage account container these assets will be uploaded to"
+    description: "The name of the source storage account container"
     required: true
-  source_dir:
-    description: "The name of the directory you want to upload"
+  dest_dir:
+    description: "The name of the directory you want to download into"
     required: true
   extra_args:
     description: "Extra arguments that can be passed to `az storage blob upload-batch|sync`. Useful for passing flags like `--pattern` or `--destination-path`"
-    required: false
-  sync:
-    description: "Use `az storage blob sync` to synchronize blobs recursively"
     required: false
   overwrite:
     description: "Overwrite existing files in the destination container. Defaults to false"
