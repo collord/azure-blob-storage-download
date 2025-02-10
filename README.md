@@ -1,4 +1,4 @@
-# GitHub Action to Upload Assets to Azure Blob Storage
+# GitHub Action to Download Assets from Azure Blob Storage
 
 This action is designed to use the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) to upload a directory of your choice to your Azure Blob Storage account.
 
@@ -9,7 +9,7 @@ This action is designed to use the [Azure CLI](https://docs.microsoft.com/en-us/
 Place in a `.yml` file such as this one in your `.github/workflows` folder. [Refer to the documentation on workflow YAML syntax here.](https://help.github.com/en/articles/workflow-syntax-for-github-actions)
 
 ```yaml
-name: Upload To Azure Blob Storage
+name: Download from Azure Blob Storage
 on:
   push:
     branches:
@@ -19,12 +19,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: bacongobbler/azure-blob-storage-upload@main
+      - uses: bacongobbler/azure-blob-storage-download@main
         with:
-          source_dir: _dist
+          dest_dir: tmp
           container_name: www
           connection_string: ${{ secrets.ConnectionString }}
-          extra_args: '--pattern *.tar.gz'
+          #extra_args: '--pattern *.tar.gz'
           # WARNING: this will overwrite existing blobs in your blob storage
           overwrite: 'true'
 ```
