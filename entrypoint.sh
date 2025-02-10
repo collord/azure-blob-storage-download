@@ -2,8 +2,8 @@
 
 set -e
 
-if [[ -z "$INPUT_SOURCE_DIR" ]]; then
-  echo "source directory is not set. Quitting."
+if [[ -z "$INPUT_DEST_DIR" ]]; then
+  echo "destination directory is not set. Quitting."
   exit 1
 fi
 
@@ -38,16 +38,11 @@ if [[ -n ${INPUT_EXTRA_ARGS} ]]; then
   EXTRA_ARGS=${INPUT_EXTRA_ARGS}
 fi
 
-VERB="upload-batch"
-CONTAINER_NAME_FLAG="--destination"
-if [[ -n ${INPUT_SYNC} ]]; then
-  VERB="sync"
-  CONTAINER_NAME_FLAG="--container"
-fi
+VERB="download-batch"
 
 CLI_VERSION=""
 if [[ -n ${INPUT_CLI_VERSION} ]]; then
   CLI_VERSION="==${INPUT_CLI_VERSION}"
 fi
 
-az storage blob ${VERB} ${CONNECTION_METHOD} --source ${INPUT_SOURCE_DIR} ${CONTAINER_NAME_FLAG} ${INPUT_CONTAINER_NAME} ${ARG_OVERWRITE} ${EXTRA_ARGS}
+az storage blob ${VERB} ${CONNECTION_METHOD} --destination ${INPUT_DEST_DIR} --source ${INPUT_CONTAINER_NAME} ${ARG_OVERWRITE} ${EXTRA_ARGS}
